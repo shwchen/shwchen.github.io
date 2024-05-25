@@ -7,16 +7,16 @@ relative_permalinks: false
 encoding: utf-8
 
 # Setup
-title:               My Website
+title:               Shiwei Chen
 #tagline:             'foo's website
-description:         Foo's blog...
-url: https://lanyon-plus.sbamin.com
-baseurl: ""
-urlimg: https://lanyon-plus.sbamin.com/images/
+description:         Shiwei's blog...
+# url: https://shwchen.github.io
+# baseurl: ""
+# urlimg: https://lanyon-plus.sbamin.com/images/
 ## If you do not have custom domain, comment top three lines, uncomment three lines below and replace dyndna with your github userid and lanyon-plus with your project name. Also, rename CNAME file to CNAME.sample
-#url: https://dyndna.github.io/lanyon-plus
-#baseurl: "/lanyon-plus"
-#urlimg: https://dyndna.github.io/lanyon-plus/images/
+url: https://shwchen.github.io/shwchen.github.io
+baseurl: "/shwchen.github.io"
+urlimg: https://shwchen.github.io/lanyon-plus/images/
 markdown: kramdown
 kramdown:
   math_engine: mathjax
@@ -27,7 +27,7 @@ excerpt_separator: <!--more-->
 default_bg: sitebg.jpg
 default_logo: sitelogo.png
 safe: false
-#timezone:    America/Chicago
+#timezone:    Asia/Beijing
 future:      true
 
 
@@ -49,14 +49,14 @@ exclude: ["lib", "config.rb", "Gemfile", "Capfile", "Gemfile.lock", "config", "l
 
 # About/contact
 author:
-  name:              Foo Boo
+  name:              Shiwei Chen
   url:               https://twitter.com/abcd
   avatar:         foo.png
   #email:           
 
 # Owner/author information
 owner:
-  name:           Foo Boo
+  name:           Shiwei Chen
   avatar:         foo.png
   #email:          
   # Use the coder's toolbox at http://coderstoolbox.net/string/#!encoding=xml&action=encode&charset=us_ascii to encode your description into XML string
@@ -64,7 +64,7 @@ owner:
   # Social networking links used in footer. Update and remove as you like.
   twitter:        abcd
   facebook:       
-  github:         xyz123abc
+  github:         shwchen
   stackexchange:  
   linkedin:       https://www.linkedin.com/in/foo
   instagram:      
