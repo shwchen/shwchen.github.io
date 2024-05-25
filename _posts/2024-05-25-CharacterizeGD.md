@@ -25,7 +25,6 @@ hide_printmsg: false  # hide QR code, permalink block while printing.
 summaryfeed: false  # show post summary or full post in RSS feed.
 ---
 
-# Information
 **Authors:** [Oleg Platonov](https://arxiv.org/search/cs?searchtype=author&query=Platonov,+O), [Denis Kuznedelev](https://arxiv.org/search/cs?searchtype=author&query=Kuznedelev,+D), [Artem Babenko](https://arxiv.org/search/cs?searchtype=author&query=Babenko,+A), [Liudmila Prokhorenkova](https://arxiv.org/search/cs?searchtype=author&query=Prokhorenkova,+L). \
 **Venue:** 37th Conference on Neural Information Processing Systems (NeurIPS 2023). \
 **Links:** [ArXiv](https://arxiv.org/abs/2209.06177), [OpenReview](https://openreview.net/forum?id=D4GLZkTphJ). \
@@ -48,7 +47,7 @@ summaryfeed: false  # show post summary or full post in RSS feed.
 ### Homophily
 >Edges tend to connect *similar* nodes. For instance, users in social networks tend to connect to users with similar interests, and papers in citation networks mostly cite works from the same research area.
 
-Some popular Homophily Measures:
+Some popular Homophily Measures: \
 **Edge Homophily:** computes the fraction of edges that connect nodes of the same class. 
 
 $$
@@ -67,7 +66,7 @@ $$
   h_{class} = \frac{1}{C-1}\sum_{k=1}^{C}\left[ \frac{\sum_{v:y_v=k}|\{u\in N(v):y_u=y_v\}|}{\sum_{v:y_v=k}d(v)} - \frac{n_k}{n} \right]_{+}
 $$
 
-Node and Edge Homophily are sensitive to number of classes and their balance. Class Homophily addresses the issue but only consider positive deviation from $\frac{n_k}{n}$ (neglecting heterophilous patterns) and does not consider variation of node degrees.
+Node and Edge Homophily are sensitive to number of classes and their balance. Class Homophily addresses the issue but only consider positive deviation from $$\frac{n_k}{n}$$ (neglecting heterophilous patterns) and does not consider variation of node degrees.
 
 ### Heterophily
 
