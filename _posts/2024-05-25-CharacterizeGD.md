@@ -93,7 +93,7 @@ The opposite of Maximal Agreement.
 
 #### Constant Baseline
 
-Given a Configuration Model, the measure has Asymptotic Constant Baseline (ACB) if for any $$\epsilon > 0$$ with probability $$1 - o(1)$$, we have $$|h(G) - c_{base}| \leq \epsilon$$ for some constant $$c_{base}$$ as $$n \rightarrow \inf$$.
+Given a Configuration Model, the measure has Asymptotic Constant Baseline (ACB) if for any $$\epsilon$$ bigger then 0 with probability $$1 - o(1)$$, we have $$|h(G) - c_{base}|$$ less than $$\epsilon$$ for some constant $$c_{base}$$ as $$n \rightarrow \inf$$.
 
 #### Empty Class Tolerance
 
