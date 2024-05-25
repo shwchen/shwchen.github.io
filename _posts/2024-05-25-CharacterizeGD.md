@@ -45,29 +45,36 @@ summaryfeed: false  # show post summary or full post in RSS feed.
 
 ## Preliminary
 
-**Homophily**
+### Homophily
 >Edges tend to connect *similar* nodes. For instance, users in social networks tend to connect to users with similar interests, and papers in citation networks mostly cite works from the same research area.
 
 Some popular Homophily Measures:
-1. Edge Homophily: computes the fraction of edges that connect nodes of the same class. 
+**Edge Homophily:** computes the fraction of edges that connect nodes of the same class. 
+
 $$
   h_{edge} = \frac{|\{\{u, v\} \in E: y_u = y_v\}|}{|E|}
 $$
-2. Node Homophily: computes the fraction of neighbors of same class for all nodes.
+
+**Node Homophily:** computes the fraction of neighbors of same class for all nodes.
+
 $$
   h_{node} = \frac{1}{n}\sum_{v\in V}\frac{|\{\{u, v\} \in N(v): y_u = y_v\}|}{d(v)}
 $$
-3. Class Homophily: measures excess homophily compared to a null model where edges are independent of the labels.
+
+**Class Homophily:** measures excess homophily compared to a null model where edges are independent of the labels.
+
 $$
-h_{class} = \frac{1}{C-1}\sum_{k=1}^{C}\left[ \frac{\sum_{v:y_v=k}|\{u\in N(v):y_u=y_v\}|}{\sum_{v:y_v=k}d(v)} - \frac{n_k}{n} \right]_{+}
+  h_{class} = \frac{1}{C-1}\sum_{k=1}^{C}\left[ \frac{\sum_{v:y_v=k}|\{u\in N(v):y_u=y_v\}|}{\sum_{v:y_v=k}d(v)} - \frac{n_k}{n} \right]_{+}
 $$
 
-1 and 2 are sensitive to number of classes and their balance. 3 addresses the issue but only consider positive deviation from $\frac{n_k}{n}$ (neglecting heterophilous patterns) and does not consider variation of node degrees.
+Node and Edge Homophily are sensitive to number of classes and their balance. Class Homophily addresses the issue but only consider positive deviation from $\frac{n_k}{n}$ (neglecting heterophilous patterns) and does not consider variation of node degrees.
 
-**Heterophily**
+### Heterophily
+
 >Edges tend to connect *dissimilar* nodes. For instance, in social networks, fraudsters rarely connect to other fraudsters, while in dating networks, edges often connect the opposite genders.
 
-**Constant Baseline**
+### Constant Baseline
+
 >Requires a measure being unbiased towards particular numbers of classes or their size balance.
 
 ## Motivation
