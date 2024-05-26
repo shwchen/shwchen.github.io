@@ -125,25 +125,25 @@ Heterophilous graph datasets can have various connectivity patterns and some of 
 
 Steps to make adjusted homophily:
 
-Step 1. Start with $$h_{edge}$$.
+**Step 1.** Start with $$h_{edge}$$.
 
 $$
   h_{edge} = \frac{|\{\{u, v\} \in E: y_u = y_v\}|}{|E|}
 $$
 
-Step 2. Subtract the the Expected Value, that is the expected homophily if edges were ramdom assigned. The probability that a given edge will be connected to a class k node is $$\frac{\sum_{v:y_v=k}d(v)}{2\lvert E\rvert}$$
+**Step 2.** Subtract the the Expected Value, that is the expected homophily if edges were ramdom assigned. The probability that a given edge will be connected to a class k node is $$\frac{\sum_{v:y_v=k}d(v)}{2\lvert E\rvert}$$
 
 $$
   h_{adj} = h_{edge} - \sum_{k=1}^C \frac{D_k^2}{4|E|^2}
 $$
 
-Step 3. Dividing by a a term that accounts for the distribution of class labels, a way of normalization to ensure compatibility.
+**Step 3.** Dividing by a a term that accounts for the distribution of class labels, a way of normalization to ensure compatibility.
 
 $$
   h_{adj} = \frac{h_{edge} - \sum_{k=1}^C \bar{p}(k)^2}{1 - \sum_{k=1}^C \bar{p}(k)^2}
 $$
 
-The term $$\bar{p}(k) = \frac{D_k}{2|E|}$$ is known as the assortivity coefficient. 
+The term $$\bar{p}(k) = \frac{D_k}{2\lvert E\rvert}$$ is known as the assortivity coefficient. 
 
 Note:
 
