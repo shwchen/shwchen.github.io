@@ -28,7 +28,7 @@ summaryfeed: false  # show post summary or full post in RSS feed.
 **Authors:** [Oleg Platonov](https://arxiv.org/search/cs?searchtype=author&query=Platonov,+O), [Denis Kuznedelev](https://arxiv.org/search/cs?searchtype=author&query=Kuznedelev,+D), [Artem Babenko](https://arxiv.org/search/cs?searchtype=author&query=Babenko,+A), [Liudmila Prokhorenkova](https://arxiv.org/search/cs?searchtype=author&query=Prokhorenkova,+L). \
 **Venue:** 37th Conference on Neural Information Processing Systems (NeurIPS 2023). \
 **Links:** [ArXiv](https://arxiv.org/abs/2209.06177), [OpenReview](https://openreview.net/forum?id=D4GLZkTphJ). \
-**Code:** Source not available. [DGL implementation](https://docs.dgl.ai/en/2.0.x/generated/dgl.node_label_informativeness.html). \
+**Code:** [Notebook](https://colab.research.google.com/drive/186KlV8PrWOq_woZVaRWGYC2B10vSm7S2?usp=sharing); [DGL implementation](https://docs.dgl.ai/en/2.0.x/generated/dgl.node_label_informativeness.html). \
 **BibTex:** 
 ~~~r 
 @inproceedings{Platonov2022CharacterizingGD,
@@ -45,7 +45,8 @@ summaryfeed: false  # show post summary or full post in RSS feed.
 ## 1.1 Preliminary
 
 ### 1.1.1 Homophily
->Edges tend to connect *similar* nodes. For instance, users in social networks tend to connect to users with similar interests, and papers in citation networks mostly cite works from the same research area.
+
+Edges tend to connect *similar* nodes. For instance, users in social networks tend to connect to users with similar interests, and papers in citation networks mostly cite works from the same research area.
 
 Some popular Homophily Measures: 
 
@@ -77,9 +78,11 @@ $$
 
 ### 1.1.2 Heterophily
 
->Edges tend to connect *dissimilar* nodes. For instance, in social networks, fraudsters rarely connect to other fraudsters, while in dating networks, edges often connect the opposite genders.
+Edges tend to connect *dissimilar* nodes. For instance, in social networks, fraudsters rarely connect to other fraudsters, while in dating networks, edges often connect the opposite genders.
 
 ### 1.1.3 Desired Properties for Homophily Measures
+
+>Definition: A Configuration Model is constructed by taking n nodes, assigning each node a degree v, and then ramdomlly connecting them to form a graph.
 
 Given a homophily measure $$h$$:
 
@@ -103,8 +106,7 @@ It is *Empty Class Tolerant* if it is defined and it does not change when we int
 
 It is *monotone* if it is empty class tolerant, increases when we add an edge between two nodes of the same class (except for perfectly homophilous graphs) and decreases when we add an edge between two nodes of different classes (except for perfectly heterophilous graphs).
 
-
-## 1.2 Motivation
+## 1.2 Motivation of the Paper
 
 | Measures | Max | Min | ACB | ECT | Mono |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -119,6 +121,55 @@ Heterophilous graph datasets can have various connectivity patterns and some of 
 
 # 2 Method and Theory
 
+## 2.1 How to Adjust Homophily
+
+Steps to make adjusted homophily:
+
+Step 1. Start with $$h_{edge}$$.
+
+$$
+  h_{edge} = \frac{|\{\{u, v\} \in E: y_u = y_v\}|}{|E|}
+$$
+
+Step 2. Subtract the the Expected Value (calculate the epected homophily if edges were ramdom assigned). The probability that a given edge will be connected to a class $$k$$ node is $$\frac{\sum_{v:y_v=k}d(v )}{2|E|}$$
+
+$$
+  h_{adj} = h_{edge} - \sum_{k=1}^C \frac{D_k^2}{4|E|^2}
+$$
+
+Step 3. Dividing by a a term that accounts for the distribution of class labels, a way of normalization to ensure compatibility.
+
+$$
+  h_{adj} = \frac{h_{edge} - \sum_{k=1}^C \bar{p}(k)^2}{1 - \sum_{k=1}^C \bar{p}(k)^2}
+$$
+
+The term $$\bar{p}(k) = \frac{D_k}{2|E|}$$ is known as the assortivity coefficient. 
+
+Note:
+
+Squaring emphasize the the variance and distribution of edges in graph, ensuring the expected homophily measure is sensitive to the actual structure of the graph.
+
+## 2.2 How Edge-wise Homophily relates to Classification Evaluation Metrics
+
+>Definition: Each elements of a Class Adjacency Matrix indicates the number of edges connecting nodes of class i and nodes of class j.
+
+`For each edge $$(u, v)$$, if $$y_u$$ is a true label while $$y_v$$ is a predicted label, then any classification evaluation measure applied to this dataset is a measure of Homopholy.`{:.yelhglt}
+
+Clearly, the Edge Homophily relates to accuracy, whereas the Adjusted homophily corresponds to both Cohen’s Kappa and Matthews coefficient, on such a dataset.
+
+## 2.3 Characterize Heterophilous Patterns by Label Informativeness (LI)
+
+Adjusted Homophily captures the absense of homophily in heterophilous graphs, it cannot identify which type these graphs belong to. 
+
+The intuition behind LI is simple, the easier it becomes to predicting a node's label by knowing its neighbors', the more informative its neighbors are. Formally, if we sample a edge $$(a, b) \in E$$, the LI is the normalized mutual information of the two random variables $$y_a$$ and $$y_b$$:
+
+$$
+LI \in [0, 1] \coloneqq I(y_a, y_b) / H(y_a)
+$$
+
+If knowing $$y_b$$ completely removes uncertainty about $$y_a$$, then LI is 1. If $$y_a \perp \!\!\! \perp y_b$$, Li is 0.
+
 # 3 Experiment and Analysis
 
 # 4 Thought and Discussion
+
