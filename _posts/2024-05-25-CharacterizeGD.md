@@ -131,7 +131,7 @@ $$
   h_{edge} = \frac{|\{\{u, v\} \in E: y_u = y_v\}|}{|E|}
 $$
 
-Step 2. Subtract the the Expected Value (calculate the epected homophily if edges were ramdom assigned). The probability that a given edge will be connected to a class \( k \) node is \( \frac{\sum_{v:y_v=k}d(v )}{2|E|} \)
+Step 2. Subtract the the Expected Value, that is the expected homophily if edges were ramdom assigned. The probability that a given edge will be connected to a class k node is $$\frac{\sum_{v:y_v=k}d(v )}{2|E|}$$
 
 ```math
   h_{adj} = h_{edge} - \sum_{k=1}^C \frac{D_k^2}{4|E|^2}
