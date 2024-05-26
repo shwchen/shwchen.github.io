@@ -131,11 +131,11 @@ $$
   h_{edge} = \frac{|\{\{u, v\} \in E: y_u = y_v\}|}{|E|}
 $$
 
-Step 2. Subtract the the Expected Value, that is the expected homophily if edges were ramdom assigned. The probability that a given edge will be connected to a class k node is $$\frac{\sum_{v:y_v=k}d(v )}{2|E|}$$
+Step 2. Subtract the the Expected Value, that is the expected homophily if edges were ramdom assigned. The probability that a given edge will be connected to a class k node is $$\frac{\sum_{v:y_v=k}d(v)}{2|E|}$$
 
-```math
+$$
   h_{adj} = h_{edge} - \sum_{k=1}^C \frac{D_k^2}{4|E|^2}
-```
+$$
 
 Step 3. Dividing by a a term that accounts for the distribution of class labels, a way of normalization to ensure compatibility.
 
@@ -153,7 +153,7 @@ Squaring emphasize the the variance and distribution of edges in graph, ensuring
 
 >Definition: Each elements of a Class Adjacency Matrix indicates the number of edges connecting nodes of class i and nodes of class j.
 
-`For each edge $$(u, v)$$, if $$y_u$$ is a true label while $$y_v$$ is a predicted label, then any classification evaluation measure applied to this dataset is a measure of Homopholy.`{:.yelhglt}
+For each edge $$(u, v)$$, if $$y_u$$ is a true label while $$y_v$$ is a predicted label, then any classification evaluation measure applied to this dataset is a measure of Homopholy.
 
 Clearly, the Edge Homophily relates to accuracy, whereas the Adjusted homophily corresponds to both Cohen’s Kappa and Matthews coefficient, on such a dataset.
 
@@ -164,7 +164,7 @@ Adjusted Homophily captures the absense of homophily in heterophilous graphs, it
 The intuition behind LI is simple, the easier it becomes to predicting a node's label by knowing its neighbors', the more informative its neighbors are. Formally, if we sample a edge $$(a, b) \in E$$, the LI is the normalized mutual information of the two random variables $$y_a$$ and $$y_b$$:
 
 $$
-LI \in [0, 1] \coloneqq I(y_a, y_b) / H(y_a)
+  LI \in [0, 1] = I(y_a, y_b) / H(y_a)
 $$
 
 If knowing $$y_b$$ completely removes uncertainty about $$y_a$$, then LI is 1. If $$y_a \perp \!\!\! \perp y_b$$, Li is 0.
