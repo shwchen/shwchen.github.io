@@ -117,11 +117,11 @@ Several Homophily Measures used prevalently do not satisfy the desired propertie
 
 Heterophilous graph datasets can have various connectivity patterns and some of them are easier for GNNs than others. `The authors proposed a new graph property, named Label Informativeness (LI), which characterizes how much information the neighbor's label provides about the node's label, to complement Adjusted Homophily by distinguishing different homophilous patterns.`{:.yelhglt} Empirical evidence testifies that LI better explains GNNs' performance than Homophily Measures.
 
-# 2 Method
+# 3 Method
 
 Adjusted Homophily + Label Informativeness.
 
-## 2.1 How to Adjust Homophily
+## 3.1 How to Adjust Homophily
 
 Steps to make adjusted homophily:
 
@@ -149,7 +149,7 @@ Note:
 
 Squaring emphasize the the variance and distribution of edges in graph, ensuring the expected homophily measure is sensitive to the actual structure of the graph.
 
-## 2.2 How Edge-wise Homophily relates to Classification Evaluation Metrics
+## 3.2 How Edge-wise Homophily relates to Classification Evaluation Metrics
 
 >Definition: Each elements of a Class Adjacency Matrix indicates the number of edges connecting nodes of class i and nodes of class j.
 
@@ -157,7 +157,7 @@ For each edge $$(u, v)$$, if $$y_u$$ is a true label while $$y_v$$ is a predicte
 
 Clearly, the Edge Homophily relates to accuracy, whereas the Adjusted homophily corresponds to both Cohen’s Kappa and Matthews coefficient, on such a dataset.
 
-## 2.3 Characterize Heterophilous Patterns by Label Informativeness (LI)
+## 3.3 Characterize Heterophilous Patterns by Label Informativeness (LI)
 
 Adjusted Homophily captures the absense of homophily in heterophilous graphs, it cannot identify which type these graphs belong to. 
 
@@ -169,7 +169,7 @@ $$
 
 If knowing $$y_b$$ completely removes uncertainty about $$y_a$$, then LI is 1. If $$y_a \perp \!\!\! \perp y_b$$, Li is 0.
 
-# 3 Experiment
+# 4 Experiment
 
 To characterize some existing graph datasets in terms of homophily and LI to see what structural patterns are covered.
 
@@ -199,6 +199,6 @@ To show that LI better align with GNN performance than homophily. the author con
 The results indicate that LI are much more correlated with GNN performances than Adjusted Homophily.
 
 
-# 4 Summary
+# 5 Summary
 
 This work introduces Adjusted Homophily and Label Informativeness to better characterize graph datasets, showing that LI aligns more closely with GNN performance and effectively distinguishes various heterophilous patterns.
