@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Characterizing Graph Datasets for Node Classification: Homophily–Heterophily Dichotomy and Beyond"
-date: "2024-05-05"
+date: "2024-05-25"
 slug: "characterize-graph-datasets"
 description: "Homophily describes the tendency for similar nodes to connect, while heterophily involves dissimilar nodes, challenging GNNs. Current homophily measures have drawbacks. This work introduces 'adjusted homophily', which meets more desirable properties, and proposes 'label informativeness' (LI) to better distinguish heterophily types. LI aligns well with GNN performance, proving useful for characterizing graph structure."
 category: 
