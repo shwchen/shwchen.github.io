@@ -49,7 +49,7 @@ When talking about predictive uncertainty of a DNN, it is referring to indicatin
 
 >*Epistemic*: relating to knowledge or to the dgree of its validation.
 
-This type of uncertainty is due to the lack of knowledge about unseen data.
+This type of uncertainty is due to the model's lack of knowledge about unseen data.
 
 ### 1.1.2 Aleatoric Uncertainty
 
@@ -65,46 +65,78 @@ For example, in a regression problem, if the noise has the same variance regardl
 
 ### 1.1.3 Graph Posterior Network (GPN)
 
-#### 1.1.3.1 Axiomatic Approach
-
->Axiom 1: A node's prediction without network effects should only depend on its own features. A node with features more different from training features should be assigned higher uncertainty.
-
->Axiom 2: All else being equal, if a node's prediction without network effects is more epistemically certain, then its neighbors' predictions with network effects should become more epistemically certain.
-
->Axiom 3: All else being equal, a node's prediction with network effects should have higher aleatoric uncertainty if its neighbors's prediction without network effects have high aleatoric uncertainty. Further, a node prediction with network effects should have higher aleatoric uncertainty if its neighbors' predictions without network effects are more conflicting.
-
-#### 1.1.3.2 Bayesian Update
-
-Standard Bayesian Update
-
-Aleatoric: $$y\sim Cat(p)$$; \
-Epistemic: $$p\sim Dir(\alpha^{post})$$ where $$\alpha^{post} = \alpha^{prior} + \beta$$
-
-Input-dependent Bayesian Update
-
-Aleatoric: $$y^{(u)}\sim Cat(p^{(u)})$$; \
-Epistemic: $$p^{(u)}\sim Dir(\alpha^{post,(u)})$$ where $$\alpha^{post,(u)} = \alpha^{prior} + \beta^{ft.(u)}$$
-
-Bayesian Update for Interdependent Input
-
-Aleatoric: $$y^{(u)}\sim Cat(p^{(u)})$$; \
-Epistemic: $$p^{(u)}\sim Dir(\alpha^{post,(u)})$$ where $$\alpha^{post,(u)} = \alpha^{prior} + \beta^{agg.(u)}$$
-
-#### 1.1.3.3 Intuitive Understanding
+#### 1.1.3.1 Intuitive Understanding
 
 Imagine you have a social network where each person can have one of several hobbies. Some people’s hobbies are known, while others are not. The goal is to predict the hobbies of the unknown ones. GPN uses the known hobbies and the connections between people to predict the unknown hobbies. It also indicates how confident it is about each prediction. For instance, if someone is connected to many people with the same hobby, GPN will be more confident in predicting that hobby for them.
 
+#### 1.1.3.2 Practical Understanding
+
+On semi-supervised node classification tasks, GPN has three main steps:
+
+(a) A simple two-layer MLP that maps feature to a low-dimensional latent space.
+
+$$
+    z_i = f(X_i;\theta)
+$$
+
+(b) Normalizing flow for desnity estimation per class.
+
+$$
+    g_{\phi}(z_i)_k = N_k \cdot P(z_i\vert k;\phi) 
+$$
+
+where $$N_k$$ is the number of training nodes of class $$k$$ and $$P$$ is the conditional density per class $$k$$ estimated by a normalizing flow module with parameters $$\phi$$
+
+(c) Personalized page rank for evidence diffusion.
+
+$$
+    \beta_{i,k}^{aggr} = \sum_{j\in V}\prod_{i,j}^{ppr}g_{\phi}(z_j)_k, \alpha_i = \beta_i^{aggr} + {{1}}
+$$
+
 ### 1.1.4 Uncertainty Cross-Entropy (UCE)
+
+A modified version of CE that incorporates uncertainty.
+
+$$
+    L = -\sum_{c=1}^C y_c \log(p_c) + \lambda \cdot \text{UncertaintyTerm}
+$$
+
+This modification leads to more robust models capable of making reliable predictions with quantified uncertainty. This approach is particularly useful in applications like medical diagnosis, autonomous systems, and any scenario where understanding the model's confidence is as important as the prediction itself.
 
 # 2 Motivation
 
-The uncertainty estimation for classifying interdependent nodes in attributed graph data is under-explored. Unlike other data such as images and tabulars, if a node in a graph is somehow perturbed, the distorted information will spread through the node's neighbors owing to the message-passing aggregation scheme. 
+The uncertainty estimation for classifying interdependent nodes in attributed graph data is under-explored. Unlike other data such as images and tabulars, if a node in a graph is somehow perturbed, the distorted information will spread through the node's neighbors owing to the message-passing aggregation scheme.
 
 The authors focus on the node classification tasks with great potential to generalize to others with interdependent inputs. They further theoretically analyze the limitations of GPN at OOD detection when minimizing UCE, then propose a distance-based regularization accordingly.
 
 # 3 Method
 
+The author proves that the UCE loss function alone is insufficient to learn a representation space that separates OOD from ID nodes using the GPN model. They propose a heuristic rememdy that enforces distance minimization on the graph to help prevent the model from discarding relevant features while decreasing variation between nodes in the representation space.
+
+$$
+    R_D(f_\theta(X);G) = \sum_{i,j\in E} \lVert f_\theta(x_i) - f_\theta(x_j) \rVert^2
+$$
+
+The regularization encourages nearby points in the graph representation to remain nearby in the latent space.
+
+See original paper for detailed theoretical deduction.
+
 # 4 Experiment
+
+## 4.1 OOD Detection
+
+Left-Out-Classes setting, where several categories are assumed to be OOD. OOD nodes are retained but has their labels excluded from the training and validation. Removing the last graph propagation layer for comparison as "w/o network" where the final result only depends on the node features and no graph structure involved.
+
+![OOD Detection Experiment Results](/images/2024-05-29-ImproveUQ/OOD.jpg)
+
+## 4.2 Misclassification Detection
+
+![Misclassification Detection Experiment Results](/images/2024-05-29-ImproveUQ/Misclassification.jpg)
+
+## 4.3 Ablation Study
+
+![Ablation Study Results](/images/2024-05-29-ImproveUQ/Ablation.jpg)
 
 # 5 Summary
 
+This paper theoretically investigates the limitation on a specific setting, that is GPN+UCE, and propose a distance-based regularization as the remedy.
