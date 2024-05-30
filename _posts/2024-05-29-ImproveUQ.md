@@ -127,15 +127,15 @@ See original paper for detailed theoretical deduction.
 
 Left-Out-Classes setting, where several categories are assumed to be OOD. OOD nodes are retained but has their labels excluded from the training and validation. Removing the last graph propagation layer for comparison as "w/o network" where the final result only depends on the node features and no graph structure involved.
 
-![OOD Detection Experiment Results](/images/2024-05-29-ImproveUQ/OOD.jpg)
+![OOD Detection Experiment Results](/images/post_figures/2024-05-29-ImproveUQ/OOD.jpg)
 
 ## 4.2 Misclassification Detection
 
-![Misclassification Detection Experiment Results](/images/2024-05-29-ImproveUQ/Misclassification.jpg)
+![Misclassification Detection Experiment Results](/images/post_figures/2024-05-29-ImproveUQ/Misclassification.jpg)
 
 ## 4.3 Ablation Study
 
-![Ablation Study Results](/images/2024-05-29-ImproveUQ/Ablation.jpg)
+![Ablation Study Results](/images/post_figures/2024-05-29-ImproveUQ/Ablation.jpg)
 
 # 5 Summary
 
